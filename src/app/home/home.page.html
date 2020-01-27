@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title sytle="text-align: center">
+      Animales
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="recargar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list>
+    
+    <!--*<ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/animales/caballo.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>Caballo</h2>
+      </ion-label>
+    </ion-item>*/-->
+    <ion-item-sliding *ngFor="let animal of animales; let i = index">
+      <!-- ngFor es el for para la lista de animales que cada objeto es un animal
+      Funciona porque tenemos habilitada las interfaces, sino tendriamos que hacerlo de otra forma-->
+      <ion-item (click)="reproducir(animal)">
+        <ion-avatar  slot="start">
+          <!-- [ ] para el src porqu ese va a usar de una lista de valores sino valdria sin src-->
+          <img [src]="animal.imagen">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{animal.nombre}}</h2>
+        </ion-label>
+        <!--reproducinedo es uno de los atributos de la interface que esta en el JSON de data animales-->
+        <ion-icon *ngIf="animal.reproduciendo" name="pause" item-right></ion-icon>
+        <ion-icon *ngIf="!animal.reproduciendo" name="play" item-right></ion-icon>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="borrarAnimal(i)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+          <p>Borrar</p>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+</ion-list>
+
+
+</ion-content>
